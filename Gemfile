@@ -23,6 +23,7 @@ gem 'bullet'
 gem 'rails_best_practices'
 gem 'rubocop'
 gem 'figaro'
+gem 'httparty'
 
 group :development, :test do
   ##### Debugging #####
