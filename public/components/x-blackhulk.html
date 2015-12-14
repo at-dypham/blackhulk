@@ -6,6 +6,13 @@
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 
+<!-- Import iron-element -->
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<!-- Import custom element -->
+<link rel="import" href="../components/blackhulk-data.html">
+<link rel="import" href="../components/blackhulk-view.html">
+
 <dom-module id="x-blackhulk">
   <template>
     <style>
@@ -13,7 +20,7 @@
 
     <!-- Data -->
     <blackhulk-data
-      url="[[url]]"
+      url="{{url}}"
       data="{{data}}"
     ></blackhulk-data>
 
@@ -27,6 +34,10 @@
     Polymer({
       is: "x-blackhulk",
       properties: {
+        url: {
+          type: String,
+          value: "/data.json"
+        }
       }
     })
   </script>

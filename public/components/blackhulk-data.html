@@ -5,6 +5,15 @@
     <style>
     </style>
 
+    <iron-ajax
+      url="[[url]]"
+      last-response="{{data}}"
+      on-response="responseTest"
+      auto
+    ></iron-ajax>
+
+    <div>{{url}}</div>
+    <div>{{data}}</div>
   </template>
 
   <script>
@@ -16,6 +25,9 @@
           type: Object,
           value: []
         }
+      },
+      responseTest: function(e) {
+        console.log(this.data);
       }
     })
   </script>
