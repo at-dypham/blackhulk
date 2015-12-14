@@ -1,0 +1,19 @@
+{
+  "name": "blackhulk",
+  "version": "1.0.0",
+  "description": "Blog engine for developer.",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FancyBlog/blackhulk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FancyBlog/blackhulk/issues"
+  },
+  "homepage": "https://github.com/FancyBlog/blackhulk#readme"
+}
