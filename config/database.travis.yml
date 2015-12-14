@@ -4,5 +4,5 @@ test:
   encoding: utf8
   charset:  utf8
   pool:     5
-  username: ubuntu
+  username: postgres
   host:     localhost
