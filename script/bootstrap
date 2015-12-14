@@ -1,7 +1,7 @@
 #!/bin/bash --login
 
-ruby_version=`cat ../.ruby-version`
-ruby_gemset=`cat ../.ruby-gemset`
+ruby_version=`cat .ruby-version`
+ruby_gemset=`cat .ruby-gemset`
 
 # Use correct ruby & gemset
 export rvm_gemset_create_on_use_flag=1
