@@ -3,6 +3,9 @@
 ruby_version=`cat .ruby-version`
 ruby_gemset=`cat .ruby-gemset`
 
+# Enjoy :coffee: :coffee:
+echo "================= Enjoy some coffee ☕️ ==================="
+
 # Use correct ruby & gemset
 export rvm_gemset_create_on_use_flag=1
 rvm use $ruby_version@$ruby_gemset
@@ -23,11 +26,16 @@ then
 fi
 
 # Install npm & bower dependencies
-npm install
-npm init -y
+read -p " Do you want to init npm & bower?(y|n) " ans
 
-npm install bower
-bower init
+if [[ ( "$ans" == "y" ) || ( "$ans" == "Y" )]]
+then
+  npm install
+  npm init -y
+
+  npm install bower
+  bower init
+fi
 
 # rake db
 rake db:bootstrap
