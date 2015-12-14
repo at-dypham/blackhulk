@@ -11,7 +11,7 @@ rvm use $ruby_version@$ruby_gemset --create --ruby-version
 bundle install --jobs=5 --retry=8
 
 # Prompt user edit config files...
-read -p " Did you edit the database.yml yet? Press any key after finish editting"
+read -p " Did you edit the database.yml yet? Press enter after finish editing"
 
 # Ask user to install npm & bower
 read -p " This project requires npm, bower. Do you want to install them (y|n) " ans
