@@ -1,0 +1,32 @@
+#!/bin/bash --login
+
+ruby_version=`cat ../.ruby-version`
+ruby_gemset=`cat ../.ruby-gemset`
+
+# Use correct ruby & gemset
+export rvm_gemset_create_on_use_flag=1
+rvm use $ruby_version@$ruby_gemset --create --ruby-version
+
+# Run bundle install
+bundle install --jobs=5 --retry=8
+
+# Prompt user edit config files...
+read -p " Did you edit the database.yml yet? Press any key after finish editting"
+
+# Ask user to install npm & bower
+read -p " This project requires npm, bower. Do you want to install them (y|n) " ans
+
+if [[ ( "$ans" == "y" ) || ( "$ans" == "Y" ) ]]
+then
+  curl -L https://www.npmjs.com/install.sh | sh
+  npm install bower
+fi
+
+# Install npm & bower dependencies
+npm install && bower install
+
+# rake db
+rake db:bootstrap
+
+# run the server
+rails s -p 3000
