@@ -15,6 +15,7 @@
 # Ignore application configuration
 /config/application.yml
 /config/config.yml
+/config/secrets.yml
 /config/database.yml
 /db/*.javadb/
 /db/*.sqlite3
