@@ -78,3 +78,6 @@ analyze/*
 # Coverage
 /coverage.data
 /coverage/
+
+# npm
+**/npm-debug.log

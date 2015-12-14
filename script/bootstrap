@@ -5,7 +5,7 @@ ruby_gemset=`cat ../.ruby-gemset`
 
 # Use correct ruby & gemset
 export rvm_gemset_create_on_use_flag=1
-rvm use $ruby_version@$ruby_gemset --create --ruby-version
+rvm use $ruby_version@$ruby_gemset
 
 # Run bundle install
 bundle install --jobs=5 --retry=8
@@ -23,7 +23,11 @@ then
 fi
 
 # Install npm & bower dependencies
-npm install && bower install
+npm install
+npm init -y
+
+npm install bower
+bower init
 
 # rake db
 rake db:bootstrap
