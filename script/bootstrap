@@ -10,6 +10,9 @@ echo "================= Enjoy some coffee ☕️ ==================="
 export rvm_gemset_create_on_use_flag=1
 rvm use $ruby_version@$ruby_gemset
 
+# install bundler
+gem install bundler
+
 # Run bundle install
 bundle install --jobs=5 --retry=8
 
