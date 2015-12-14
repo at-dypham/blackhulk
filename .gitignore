@@ -14,3 +14,66 @@
 
 # Ignore application configuration
 /config/application.yml
+/config/config.yml
+/config/database.yml
+/db/*.javadb/
+/db/*.sqlite3
+
+# Doc
+/doc/api/
+/doc/app/
+/doc/features.html
+/doc/specs.html
+
+# Public files (cache, paperclip-upload directory, compile assets)
+/public/cache
+/public/stylesheets/compiled
+/public/dist/
+/public/system/*
+
+
+# Spec temp
+/spec/tmp/*
+
+#Other
+/cache
+/capybara*
+/capybara-*.html
+/gems
+/specifications
+rerun.txt
+pickle-email-*.html
+.zeus.sock
+
+# scm revert files
+**.orig
+
+# Mac finder artifacts
+.DS_Store
+
+# Netbeans project directory
+#/nbproject/
+
+# RubyMine project files
+#.idea
+
+# Textmate project files
+#/*.tmproj
+
+# vim artifacts
+**.swp
+
+# Environment files that may contain sensitive data
+.env
+.powenv
+
+.tags
+public/bower_components/
+
+# Analyze & Brakeman output
+analyze/*
+**/brakeman.html
+
+# Coverage
+/coverage.data
+/coverage/

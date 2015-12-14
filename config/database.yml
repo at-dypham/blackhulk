@@ -3,8 +3,8 @@ default: &default
   encoding: utf8
   charset: utf8
   pool: 5
-  username: postgres
-  password: postgres
+  username: kevin
+  password:
   host: 127.0.0.1
   port: 5432
 
