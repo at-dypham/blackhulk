@@ -11,9 +11,6 @@
       on-response="responseTest"
       auto
     ></iron-ajax>
-
-    <div>{{url}}</div>
-    <div>{{data}}</div>
   </template>
 
   <script>
@@ -23,11 +20,9 @@
         url: String,
         data: {
           type: Object,
-          value: []
+          value: [],
+          notify: true
         }
-      },
-      responseTest: function(e) {
-        console.log(this.data);
       }
     })
   </script>
