@@ -3,12 +3,45 @@
 <dom-module id="blackhulk-view">
   <template>
     <style>
+      :host ::content .post {
+        @apply(--paper-font-body1);
+        width: 50%;
+        margin-bottom: 10px;
+      }
+
+      :host ::content .title {
+        @apply(--paper-font-display1);
+      }
+
+      :host ::content .wrapper {
+        padding: 10px 15px;
+      }
     </style>
+
+    <iron-list
+      items="[[data]]"
+      class="fit"
+    >
+      <template>
+        <div class="horizontal layout center-center">
+          <paper-material class="post self-center">
+            <div class="wrapper">
+              <div class="title">[[item.title]]</div>
+              <div>[[item.content]]</div>
+            </div>
+          </paper-material>
+        </div>
+      </template>
+    </iron-list>
+
   </template>
 
   <script>
     Polymer({
-      is: "blackhulk-view"
+      is: "blackhulk-view",
+      properties: {
+        data: Object
+      }
     })
   </script>
 </dom-module>
