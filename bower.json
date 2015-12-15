@@ -41,6 +41,7 @@
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
     "paper-tooltip": "PolymerElements/paper-tooltip#^1.0.0",
     "iron-list": "PolymerElements/iron-list#~1.1.6",
-    "iron-media-query": "PolymerElements/iron-media-query#~1.0.8"
+    "iron-media-query": "PolymerElements/iron-media-query#~1.0.8",
+    "marked-element": "PolymerElements/marked-element#~1.1.1"
   }
 }

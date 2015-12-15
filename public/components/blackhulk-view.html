@@ -39,7 +39,13 @@
           >
             <div class="wrapper">
               <div class="title">[[item.title]]</div>
-              <div>[[item.content]]</div>
+
+              <!-- Display as markdown -->
+              <marked-element
+                markdown="[[item.content]]"
+              >
+                <div class="markdown-html"></div>
+              </marked-element>
             </div>
           </paper-material>
         </div>
