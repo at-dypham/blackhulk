@@ -9,6 +9,10 @@
         margin-bottom: 10px;
       }
 
+      :host ::content .post[small-screen] {
+        width: 95%;
+      }
+
       :host ::content .title {
         @apply(--paper-font-display1);
       }
@@ -18,13 +22,18 @@
       }
     </style>
 
+    <iron-media-query
+      query="(max-width: 600px)"
+      query-matches="{{small}}"
+    ></iron-media-query>
+
     <iron-list
       items="[[data]]"
       class="fit"
     >
       <template>
         <div class="horizontal layout center-center">
-          <paper-material class="post self-center">
+          <paper-material class="post self-center" small-screen$="{{small}}">
             <div class="wrapper">
               <div class="title">[[item.title]]</div>
               <div>[[item.content]]</div>
