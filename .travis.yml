@@ -6,5 +6,7 @@ env:
 before_script:
   - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:create db:migrate --trace
+  - chmod +x scripts/saddler.sh
+  - scripts/saddler.sh
 script:
   - RAILS_ENV=test bundle exec rspec spec

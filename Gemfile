@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 ruby '2.2.2'
 
 gem 'rails', '4.2.5'
+gem 'figaro'
+gem 'httparty'
 
 ##### Assets #####
 gem 'sass-rails', '~> 5.0'
@@ -18,8 +20,11 @@ gem 'brakeman'
 gem 'bullet'
 gem 'rails_best_practices'
 gem 'rubocop'
-gem 'figaro'
-gem 'httparty'
+gem 'scss_lint'
+
+##### Automate Code Review #####
+gem 'saddler'
+gem 'saddler-reporter-github'
 
 group :development, :test do
   ##### Debugging #####
