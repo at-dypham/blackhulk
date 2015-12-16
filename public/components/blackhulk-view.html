@@ -27,30 +27,37 @@
       query-matches="{{small}}"
     ></iron-media-query>
 
-    <iron-list
-      items="[[data]]"
-      class="fit"
-    >
-      <template>
-        <div class="horizontal layout center-center">
-          <paper-material
-            class="post self-center"
-            small-screen$="{{small}}"
-          >
-            <div class="wrapper">
-              <div class="title">[[item.title]]</div>
+    <paper-header-panel mode="waterfall" class="flex">
+      <div class="paper-header">Header</div>
 
-              <!-- Display as markdown -->
-              <marked-element
-                markdown="[[item.content]]"
+      <div class="fit">
+        <iron-list
+          items="[[data]]"
+          class="fit"
+        >
+          <template>
+            <div class="horizontal layout center-center">
+              <paper-material
+                class="post self-center"
+                small-screen$="{{small}}"
               >
-                <div class="markdown-html"></div>
-              </marked-element>
+                <div class="wrapper">
+                  <div class="title">[[item.title]]</div>
+
+                  <!-- Display as markdown -->
+                  <marked-element
+                    markdown="[[item.content]]"
+                  >
+                    <div class="markdown-html"></div>
+                  </marked-element>
+                </div>
+              </paper-material>
             </div>
-          </paper-material>
-        </div>
-      </template>
-    </iron-list>
+          </template>
+        </iron-list>
+      </div>
+    </paper-header-panel>
+
 
   </template>
 
