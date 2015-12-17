@@ -27,7 +27,6 @@
 
       paper-toolbar .title {
         line-height: 1.1;
-        @apply(--paper-font-display1);
       }
 
       paper-toolbar.light {
@@ -36,6 +35,16 @@
 
       paper-toolbar.dark {
         color: #eee;
+      }
+
+      paper-toolbar .middle.title {
+        text-align: center;
+        @apply(--paper-font-display1);
+      }
+
+      paper-toolbar .middle.title p {
+        text-align: center;
+        @apply(--paper-font-body1);
       }
 
       :host ::content paper-scroll-header-panel {
@@ -74,6 +83,11 @@
         <paper-icon-button icon="home"></paper-icon-button>
         <div class="top title">
           Blog title
+        </div>
+
+        <div class="middle title">
+          Blog title
+          <p>Blog Description I am a developer</p>
         </div>
       </paper-toolbar>
 
