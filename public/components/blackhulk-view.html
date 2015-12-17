@@ -27,7 +27,15 @@
 
       paper-toolbar .title {
         line-height: 1.1;
-        text-align: center
+        @apply(--paper-font-display1);
+      }
+
+      paper-toolbar.light {
+        color: black;
+      }
+
+      paper-toolbar.dark {
+        color: #eee;
       }
 
       :host ::content paper-scroll-header-panel {
@@ -36,7 +44,6 @@
 
       paper-toolbar {
         background-color: transparent;
-        color: black;
       }
 
       paper-scroll-header-panel {
@@ -47,7 +54,7 @@
         left: 0;
 
         --paper-scroll-header-panel-condensed-header: {
-          background-color: var(--google-green-500);
+          background-color: var(--google-green-300);
         };
     }
     </style>
@@ -64,11 +71,9 @@
       >
 
       <paper-toolbar class="tall">
-        <paper-icon-button icon="arrow-back"></paper-icon-button>
-        <div class="bottom title">
-          <h1>
-            Blog title
-          </h1>
+        <paper-icon-button icon="home"></paper-icon-button>
+        <div class="top title">
+          Blog title
         </div>
       </paper-toolbar>
 
@@ -106,5 +111,43 @@
         data: Object
       }
     })
+
+    addEventListener('paper-header-transform', function(e) {
+      var d = e.detail;
+      var changedState = d.height - d.condensedHeight - d.y;
+
+      <!-- TODO Refactor me -->
+      if (changedState < 0) {
+        classNames = document.querySelector("paper-toolbar").className.split(" ");
+
+        index = classNames.indexOf("light")
+        if (index > -1) {
+          classNames.splice(index, 1);
+        }
+
+        darkIndex = classNames.indexOf("dark");
+        if (darkIndex <= -1) {
+          classNames.push("dark");
+        }
+
+        document.querySelector("paper-toolbar").className = classNames.join(" ");
+      }
+      else {
+        classNames = document.querySelector("paper-toolbar").className.split(" ");
+
+        index = classNames.indexOf("dark")
+        if (index > -1) {
+          classNames.splice(index, 1);
+        }
+
+        lightIndex = classNames.indexOf("light");
+        if (lightIndex <= -1) {
+          classNames.push("light");
+        }
+
+        document.querySelector("paper-toolbar").className = classNames.join(" ");
+      }
+    });
+
   </script>
 </dom-module>
