@@ -27,6 +27,7 @@
 
 <!-- Import custom pages -->
 <link rel="import" href="../pages/home-page.html">
+<link rel="import" href="../pages/post-page.html">
 
 <!--Import router-->
 <link rel="import" href="../bower_components/app-router/app-router.html">
@@ -36,8 +37,9 @@
     <style>
     </style>
 
-		<app-router>
+    <app-router>
       <app-route path="/" element="home-page"></app-route>
+      <app-route path="/posts/:postId" element="post-page"></app-route>
     </app-router>
 
   </template>

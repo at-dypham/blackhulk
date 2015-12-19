@@ -1,0 +1,19 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="post-page">
+  <template>
+    <div>[[postId]]</div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "post-page",
+      properties: {
+        url: {
+          type: String,
+          value: "/data.json"
+        }
+      }
+    })
+  </script>
+</polymer-element>
