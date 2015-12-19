@@ -25,6 +25,9 @@
 <link rel="import" href="../components/blackhulk-view.html">
 <link rel="import" href="../components/blackhulk-list.html">
 
+<!-- Import custom pages -->
+<link rel="import" href="../pages/home-page.html">
+
 <!--Import router-->
 <link rel="import" href="../bower_components/app-router/app-router.html">
 
@@ -33,27 +36,15 @@
     <style>
     </style>
 
-    <!-- Data -->
-    <blackhulk-data
-      url="{{url}}"
-      data="{{data}}"
-    ></blackhulk-data>
+		<app-router>
+      <app-route path="/" element="home-page"></app-route>
+    </app-router>
 
-    <!-- View -->
-    <blackhulk-view
-      data="{{data}}"
-    ></blackhulk-view>
   </template>
 
   <script>
     Polymer({
-      is: "x-blackhulk",
-      properties: {
-        url: {
-          type: String,
-          value: "/data.json"
-        }
-      }
+      is: "x-blackhulk"
     })
   </script>
 </dom-module>

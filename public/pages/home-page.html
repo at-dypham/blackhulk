@@ -1,0 +1,28 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="home-page">
+  <template>
+    <!-- Data -->
+    <blackhulk-data
+      url="{{url}}"
+      data="{{data}}"
+    ></blackhulk-data>
+
+    <!-- View -->
+    <blackhulk-view
+      data="{{data}}"
+    ></blackhulk-view>
+  </template>
+
+  <script>
+    Polymer({
+      is: "home-page",
+      properties: {
+        url: {
+          type: String,
+          value: "/data.json"
+        }
+      }
+    })
+  </script>
+</polymer-element>
