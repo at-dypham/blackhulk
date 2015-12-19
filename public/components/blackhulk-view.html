@@ -57,7 +57,7 @@
       keep-condensed-header
       >
 
-      <paper-toolbar class="tall">
+      <paper-toolbar class="tall light">
         <paper-icon-button icon="home"></paper-icon-button>
         <div class="top title">
           Blog title
@@ -83,43 +83,5 @@
         data: Object
       }
     })
-
-    addEventListener('paper-header-transform', function(e) {
-      var d = e.detail;
-      var changedState = d.height - d.condensedHeight - d.y;
-
-      <!-- TODO Refactor me -->
-      if (changedState < 0) {
-        classNames = document.querySelector("paper-toolbar").className.split(" ");
-
-        index = classNames.indexOf("light")
-        if (index > -1) {
-          classNames.splice(index, 1);
-        }
-
-        darkIndex = classNames.indexOf("dark");
-        if (darkIndex <= -1) {
-          classNames.push("dark");
-        }
-
-        document.querySelector("paper-toolbar").className = classNames.join(" ");
-      }
-      else {
-        classNames = document.querySelector("paper-toolbar").className.split(" ");
-
-        index = classNames.indexOf("dark")
-        if (index > -1) {
-          classNames.splice(index, 1);
-        }
-
-        lightIndex = classNames.indexOf("light");
-        if (lightIndex <= -1) {
-          classNames.push("light");
-        }
-
-        document.querySelector("paper-toolbar").className = classNames.join(" ");
-      }
-    });
-
   </script>
 </dom-module>
