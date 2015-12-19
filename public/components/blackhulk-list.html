@@ -1,0 +1,67 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="blackhulk-list">
+  <template>
+    <style>
+      :host ::content iron-list {
+        padding-top: 20px;
+      }
+
+      :host ::content .post[small-screen] {
+        width: 95%;
+      }
+
+      :host ::content .post {
+        @apply(--paper-font-body1);
+        width: 50%;
+        margin-bottom: 15px;
+      }
+
+      :host ::content .title {
+        @apply(--paper-font-display1);
+      }
+
+      :host ::content .wrapper {
+        padding: 10px 15px;
+      }
+
+    </style>
+
+    <iron-list
+      items="[[items]]"
+    >
+      <template>
+        <div class="horizontal layout center-center">
+          <paper-material
+            class="post self-center"
+            small-screen$="{{small}}"
+          >
+            <div class="wrapper">
+              <div class="title">[[item.title]]</div>
+
+              <!-- Display as markdown -->
+              <marked-element
+                markdown="[[item.content]]"
+              >
+                <div class="markdown-html"></div>
+              </marked-element>
+            </div>
+          </paper-material>
+        </div>
+      </template>
+    </iron-list>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: "blackhulk-list",
+      properties: {
+        items: {
+          type: Object,
+          value: []
+        }
+      }
+    })
+  </script>
+</dom-module>

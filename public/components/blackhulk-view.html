@@ -3,28 +3,6 @@
 <dom-module id="blackhulk-view">
   <template>
     <style>
-      :host ::content .post {
-        @apply(--paper-font-body1);
-        width: 50%;
-        margin-bottom: 15px;
-      }
-
-      :host ::content .post[small-screen] {
-        width: 95%;
-      }
-
-      :host ::content .title {
-        @apply(--paper-font-display1);
-      }
-
-      :host ::content .wrapper {
-        padding: 10px 15px;
-      }
-
-      :host ::content iron-list {
-        padding-top: 20px;
-      }
-
       paper-toolbar .title {
         line-height: 1.1;
       }
@@ -65,7 +43,7 @@
         --paper-scroll-header-panel-condensed-header: {
           background-color: var(--google-green-300);
         };
-    }
+      }
     </style>
 
     <iron-media-query
@@ -91,29 +69,9 @@
         </div>
       </paper-toolbar>
 
-      <iron-list
-        items="[[data]]"
-      >
-        <template>
-          <div class="horizontal layout center-center">
-            <paper-material
-              class="post self-center"
-              small-screen$="{{small}}"
-            >
-              <div class="wrapper">
-                <div class="title">[[item.title]]</div>
+      <!--List of posts-->
+      <blackhulk-list items="[[data]]"></blackhulk-list>
 
-                <!-- Display as markdown -->
-                <marked-element
-                  markdown="[[item.content]]"
-                >
-                  <div class="markdown-html"></div>
-                </marked-element>
-              </div>
-            </paper-material>
-          </div>
-        </template>
-      </iron-list>
     </paper-scroll-header-panel>
 
   </template>
