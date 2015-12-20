@@ -3,6 +3,18 @@
 <dom-module id="blackhulk-view">
   <template>
     <style>
+      <!--This mixin is duplicated, please refactor. FIXME, please-->
+      :host {
+        --a-style: {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+
+      :host ::content a, :host ::content a:hover, :host ::content a:visited {
+        @apply(--a-style);
+      }
+
       paper-toolbar .title {
         line-height: 1.1;
       }
@@ -53,10 +65,13 @@
       >
 
       <paper-toolbar class="tall light">
-        <paper-icon-button icon="home"></paper-icon-button>
-        <div class="top title">
-          Blog title
-        </div>
+        <a href="#/">
+          <paper-icon-button icon="home"></paper-icon-button>
+        </a>
+
+        <a href="#/">
+          <div class="top title">Blog title</div>
+        </a>
 
         <div class="middle title">
           Blog title

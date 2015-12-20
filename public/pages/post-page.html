@@ -2,7 +2,62 @@
 
 <dom-module id="post-page">
   <template>
+    <!--Temporary duplicated things-->
+    <!--FIXME: Please DRY it-->
+
     <style>
+      :host {
+        --a-style: {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+
+      :host ::content a, :host ::content a:hover, :host ::content a:visited {
+        @apply(--a-style);
+      }
+
+      paper-toolbar .title {
+        line-height: 1.1;
+      }
+
+      paper-toolbar.light {
+        color: black;
+      }
+
+      paper-toolbar.dark {
+        color: #eee;
+      }
+
+      paper-toolbar .middle.title {
+        text-align: center;
+        @apply(--paper-font-display1);
+      }
+
+      paper-toolbar .middle.title p {
+        text-align: center;
+        @apply(--paper-font-body1);
+      }
+
+      :host ::content paper-scroll-header-panel {
+        height: 100%;
+      }
+
+      paper-toolbar {
+        background-color: transparent;
+      }
+
+      paper-scroll-header-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        --paper-scroll-header-panel-condensed-header: {
+          background-color: var(--google-green-300);
+        };
+      }
     </style>
 
     <iron-ajax
@@ -11,14 +66,31 @@
       last-response="{{items}}"
     ></iron-ajax>
 
-    <blackhulk-post item="[[items.0]]"></blackhulk-post>
 
-    <div class="horizontal layout center-center">
-      <paper-material
-        class="post self-center"
-        small-screen$="{{small}}"
-      ></paper-material>
-    </div>
+    <paper-scroll-header-panel
+      class="fit"
+      condenses
+      keep-condensed-header
+    >
+
+      <paper-toolbar class="tall light">
+        <a href="#/">
+          <paper-icon-button icon="home"></paper-icon-button>
+        </a>
+
+        <a href="#/">
+          <div class="top title">Blog title</div>
+        </a>
+
+        <div class="middle title">
+          Blog title
+          <p>Blog Description I am a developer</p>
+        </div>
+      </paper-toolbar>
+
+      <blackhulk-post item="[[items.0]]"></blackhulk-post>
+
+    </paper-scroll-header-panel>
   </template>
 
   <script>
