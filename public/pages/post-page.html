@@ -58,6 +58,10 @@
           background-color: var(--google-green-300);
         };
       }
+
+      :host ::content .like {
+        width: 50%;
+      }
     </style>
 
     <iron-ajax
@@ -90,6 +94,11 @@
 
       <blackhulk-post item="[[items.0]]"></blackhulk-post>
 
+      <div class="horizontal layout center-center like">
+        <facebook-button href="[[pageURL()]]"></facebook-button>
+        <disqus-comment></disqus-comment>
+      </div>
+
     </paper-scroll-header-panel>
   </template>
 
@@ -101,6 +110,9 @@
           type: String,
           value: "https://gist.githubusercontent.com/duykhoa/dbf1189d6a1afdfff021/raw/d695f29a83cc44acfd01623669b0243287f06a92/data.json"
         }
+      },
+      pageURL: function() {
+        return location.href;
       }
     })
   </script>
