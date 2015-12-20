@@ -2,6 +2,9 @@
 
 <dom-module id="post-page">
   <template>
+    <style>
+    </style>
+
     <iron-ajax
       auto
       url="[[url]]"
@@ -9,6 +12,13 @@
     ></iron-ajax>
 
     <blackhulk-post item="[[items.0]]"></blackhulk-post>
+
+    <div class="horizontal layout center-center">
+      <paper-material
+        class="post self-center"
+        small-screen$="{{small}}"
+      ></paper-material>
+    </div>
   </template>
 
   <script>
