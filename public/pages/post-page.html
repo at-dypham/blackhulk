@@ -2,6 +2,13 @@
 
 <dom-module id="post-page">
   <template>
+    <iron-ajax
+      auto
+      url="[[url]]"
+      last-response="{{items}}"
+    ></iron-ajax>
+
+    <blackhulk-post item="[[items.0]]"></blackhulk-post>
   </template>
 
   <script>
