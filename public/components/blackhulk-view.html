@@ -80,7 +80,13 @@
       </paper-toolbar>
 
       <!--List of posts-->
-      <blackhulk-list items="[[data]]"></blackhulk-list>
+      <iron-list
+        items="[[data]]"
+      >
+        <template>
+          <blackhulk-post item="[[item]]"></blackhulk-post>
+        </template>
+      </iron-list>
 
     </paper-scroll-header-panel>
 
