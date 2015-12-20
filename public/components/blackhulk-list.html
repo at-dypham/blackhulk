@@ -3,6 +3,26 @@
 <dom-module id="blackhulk-list">
   <template>
     <style>
+      :host {
+        --a-style {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+
+      :host ::content a {
+        @apply(--a-style);
+      }
+
+      :host ::content a:hover, :host ::content a:visited {
+        @apply(--a-style);
+      }
+
+      :host ::content a {
+        text-decoration: none;
+        color: #000;
+      }
+
       :host ::content iron-list {
         padding-top: 20px;
       }
@@ -37,7 +57,10 @@
             small-screen$="{{small}}"
           >
             <div class="wrapper">
-              <div class="title">[[item.title]]</div>
+              <div class="title">
+                <a href="#/posts/1">[[item.title]]</a>
+
+              </div>
 
               <!-- Display as markdown -->
               <marked-element
