@@ -31,7 +31,7 @@ fi
 # Install npm & bower dependencies
 read -p " Do you want to init npm & bower? Can skip it (y|n) " ans
 
-if [[ ( "$ans" == "y" ) || ( "$ans" == "Y" )]]
+if [[ ( "$ans" == "y" ) || ( "$ans" == "Y" ) ]]
 then
   npm install
   npm init -y
@@ -39,6 +39,9 @@ then
   npm install bower
   bower init
 fi
+
+# run gulp
+gulp
 
 # rake db
 rake db:bootstrap
