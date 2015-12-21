@@ -8,8 +8,10 @@
     <iron-ajax
       url="[[url]]"
       last-response="{{data}}"
+      loading="{{loadingData}}"
       auto
     ></iron-ajax>
+
   </template>
 
   <script>
@@ -20,6 +22,10 @@
         data: {
           type: Object,
           value: [],
+          notify: true
+        },
+        loadingData: {
+          type: Boolean,
           notify: true
         }
       }
