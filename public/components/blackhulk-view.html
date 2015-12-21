@@ -59,7 +59,6 @@
 
       :host ::content .spinner-wrapper {
         text-align: center;
-        margin-bottom: 15px;
       }
 
       paper-spinner {
@@ -89,10 +88,12 @@
         </div>
       </paper-toolbar>
 
-      <div class="spinner-wrapper">
-        <iron-signals on-show></iron-signals>
-        <paper-spinner active="{{loadingData}}"></paper-spinner>
-      </div>
+      <template is="dom-if" if="{{loadingData}}">
+        <div class="spinner-wrapper">
+          <iron-signals on-show></iron-signals>
+          <paper-spinner active="{{loadingData}}"></paper-spinner>
+        </div>
+      </template>
 
       <!--List of posts-->
       <iron-list
