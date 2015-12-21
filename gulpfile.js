@@ -18,6 +18,12 @@ gulp.task('clean', function () {
 
 gulp.task('minify', function() {
   var opts = {
+    collapseWhitespace: true,
+    removeComments: true,
+    quoteCharacter: '\'',
+    conservativeCollapse: true,
+    minifyJS: true,
+    minifyCSS: true
   };
 
   return gulp.src('public/dist/vulcanize/*')
