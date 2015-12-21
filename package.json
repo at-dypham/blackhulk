@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Blog engine for developer.",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FancyBlog/blackhulk.git"
@@ -15,5 +14,11 @@
   "bugs": {
     "url": "https://github.com/FancyBlog/blackhulk/issues"
   },
-  "homepage": "https://github.com/FancyBlog/blackhulk#readme"
+  "homepage": "https://github.com/FancyBlog/blackhulk#readme",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp-minifier": "^0.1.1",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-vulcanize": "^6.1.0"
+  }
 }
