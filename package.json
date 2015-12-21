@@ -20,6 +20,7 @@
     "gulp": "^3.9.0",
     "gulp-minifier": "^0.1.1",
     "gulp-minify-html": "^1.0.4",
-    "gulp-vulcanize": "^6.1.0"
+    "gulp-vulcanize": "^6.1.0",
+    "run-sequence": "^1.1.5"
   }
 }
