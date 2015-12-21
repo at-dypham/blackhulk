@@ -34,10 +34,9 @@ read -p " Do you want to init npm & bower? Can skip it (y|n) " ans
 if [[ ( "$ans" == "y" ) || ( "$ans" == "Y" ) ]]
 then
   npm install
-  npm init -y
 
   npm install bower
-  bower init
+  bower install
 fi
 
 # run gulp
