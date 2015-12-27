@@ -66,12 +66,22 @@
       twitter-button {
         margin-right: 10px;
       }
+
+      .spinner-wrapper {
+        text-align: center;
+      }
+
+      paper-spinner {
+        width: 50px;
+        height: 50px;
+      }
     </style>
 
     <iron-ajax
       auto
       url="[[url]]"
       last-response="{{items}}"
+      loading="{{loadingData}}"
     ></iron-ajax>
 
 
@@ -96,25 +106,33 @@
         </div>
       </paper-toolbar>
 
-      <blackhulk-post item="[[items.0]]"></blackhulk-post>
-
-      <div class="horizontal layout center-center">
-        <div class="like">
-          <twitter-button
-            type="share"
-            text="[[items.0.title]]"
-            href="[[pageURL()]]"
-            class="flex"
-          ></twitter-button>
-
-          <facebook-button
-            href="[[pageURL()]]"
-            class="flex"
-          ></facebook-button>
-
-          <disqus-comments shortname="kevintranninja"></disqus-comments>
+      <template is="dom-if" if="{{loadingData}}">
+        <div class="spinner-wrapper">
+          <iron-signals on-show></iron-signals>
+          <paper-spinner active="{{loadingData}}"></paper-spinner>
         </div>
-      </div>
+      </template>
+
+      <template is="dom-if" if="{{!loadingData}}">
+        <blackhulk-post item="[[items.0]]"></blackhulk-post>
+        <div class="horizontal layout center-center">
+          <div class="like">
+            <twitter-button
+              type="share"
+              text="[[items.0.title]]"
+              href="[[pageURL()]]"
+              class="flex"
+            ></twitter-button>
+
+            <facebook-button
+              href="[[pageURL()]]"
+              class="flex"
+            ></facebook-button>
+
+            <disqus-comments shortname="kevintranninja"></disqus-comments>
+          </div>
+        </div>
+      </template>
 
     </paper-scroll-header-panel>
   </template>
