@@ -100,8 +100,18 @@
 
       <div class="horizontal layout center-center">
         <div class="like">
-          <twitter-button type="share" href="[[pageURL()]]" class="flex"></twitter-button>
-          <facebook-button href="[[pageURL()]]" class="flex"></facebook-button>
+          <twitter-button
+            type="share"
+            text="[[items.0.title]]"
+            href="[[pageURL()]]"
+            class="flex"
+          ></twitter-button>
+
+          <facebook-button
+            href="[[pageURL()]]"
+            class="flex"
+          ></facebook-button>
+
           <disqus-comments shortname="kevintranninja"></disqus-comments>
         </div>
       </div>
