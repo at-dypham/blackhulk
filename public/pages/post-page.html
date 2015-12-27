@@ -62,6 +62,10 @@
       :host ::content .like {
         width: 50%;
       }
+
+      twitter-button {
+        margin-right: 10px;
+      }
     </style>
 
     <iron-ajax
@@ -96,7 +100,8 @@
 
       <div class="horizontal layout center-center">
         <div class="like">
-          <facebook-button href="[[pageURL()]]"></facebook-button>
+          <twitter-button type="share" href="[[pageURL()]]" class="flex"></twitter-button>
+          <facebook-button href="[[pageURL()]]" class="flex"></facebook-button>
           <disqus-comments shortname="kevintranninja"></disqus-comments>
         </div>
       </div>
