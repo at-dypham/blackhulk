@@ -5,6 +5,7 @@ env:
   - DB=postgres
 before_script:
   - cp config/database.travis.yml config/database.yml
+  - cp config/application.travis.yml config/application.yml
   - bundle exec rake db:create db:migrate --trace
   - chmod +x scripts/saddler.sh
   - scripts/saddler.sh
