@@ -47,4 +47,5 @@ group :test do
   gem 'poltergeist'
   gem 'vcr'
   gem 'webmock'
+  gem 'sinatra'
 end

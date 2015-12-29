@@ -11,10 +11,7 @@ class GitHub
 
   def issues
     response = self.class.get("/repos/#{ENV['github_user_name']}/#{ENV['github_repo']}/issues", options)
-    if response.code == 200
-      return JSON.parse(response.body)
-    else
-      return nil
-    end
+    return nil unless response.code == 200
+    return JSON.parse(response.body)
   end
 end
