@@ -1,7 +1,105 @@
 [
   {
-    "title": "The Git Data API Awakens",
-    "body": "GitHub has a low-level [Git Data API][github-git-data-api]. You can do basically everything with `Git` via this powerful API!\r\n\r\nIn this tutorial, I am going to walk you through how to use this API with [Octokit][octokit] to change files in one single commit in a new branch and send a Pull Request.\r\n\r\nSuppose we want to send a Pull Request for https://github.com/JuanitoFatas/git-playground with these changes:\r\n- append `bar` to file foo\r\n- append `baz` to file bar \r\n- in one commit with the message \"Update foo \u0026 bar in a new topic branch \"update-foo-and-bar\".\r\n\r\nThis is how you could do it:\r\n\r\n## 0. Install Octokit Gem\r\n\r\n```\r\n$ gem install octokit\r\n```\r\n\r\n## 1. Prepare Octokit Client\r\n\r\n[Get an access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/), and open irb with octokit required, then create an Octokit client with your token:\r\n\r\n```ruby\r\n$ irb -r octokit\r\n\r\n\u003e client = Octokit::Client.new(access_token: \"\u003cyour 40 char token\u003e\")\r\n```\r\n\r\nWe also prepare two variables to be used later, the repo name and new branch name:\r\n\r\n```\r\nrepo = \"JuanitoFatas/git-playground\"\r\nnew_branch_name = \"update-foo-and-bar\"\r\n```\r\n\r\n## 2. Create a new Topic Branch\r\n\r\nFirst, let's get the base branch (in this case, master branch) SHA1, so that we can branch from master.\r\n\r\nWe can use the [`Octokit#refs` method](http://octokit.github.io/octokit.rb/Octokit/Client/Refs.html#refs-instance_method) to get the base branch SHA1:\r\n\r\n```ruby\r\nmaster = client.refs(repo).find do |reference|\r\n  \"refs/heads/master\" == reference.ref\r\nend\r\n\r\nbase_branch_sha = master.object.sha\r\n```\r\n\r\nAnd creates a new branch from base branch via [`Octokit#create_ref` method](http://octokit.github.io/octokit.rb/Octokit/Client/Refs.html#create_ref-instance_method):\r\n\r\n```ruby\r\nnew_branch = client.create_ref(repo, \"heads/#{new_branch_name}\", base_branch_sha)\r\n```\r\n\r\nThe tricky part here is that you need to prefix your new branch name with `\"heads/\"`.\r\n\r\n## 3. Change file contents\r\n\r\nFirst let's use [`Octokit#contents` method](http://octokit.github.io/octokit.rb/Octokit/Client/Contents.html#contents-instance_method) with the SHA1 to get existing `foo` and `bar` files' content.\r\n\r\n```ruby\r\nfoo = client.contents repo, path: \"foo\", sha: base_branch_sha\r\nbar = client.contents repo, path: \"foo\", sha: base_branch_sha\r\n```\r\n\r\nContents on GitHub API is Base64-encoded, we need to decode and append \"bar\" to `foo` file, \"baz\" to `bar` file respectively:\r\n\r\n```ruby\r\nrequire \"base64\"\r\n\r\n# path =\u003e new content\r\nnew_contents = {\r\n  \"foo\" =\u003e Base64.decode64(foo.content) + \"bar\",\r\n  \"bar\" =\u003e Base64.decode64(foo.content) + \"baz\"\r\n}\r\n```\r\n\r\nCreates a new tree with our new files (blobs), the new blob can be created via ([`Octokit#create_blob` method](http://octokit.github.io/octokit.rb/Octokit/Client/Objects.html#create_blob-instance_method)). This new tree will be part of our new “tree”.\r\n\r\n```ruby\r\nnew_tree = new_contents.map do |path, new_content|\r\n  Hash(\r\n    path: path,\r\n    mode: \"100644\",\r\n    type: \"blob\",\r\n    sha: client.create_blob(repo, new_content)\r\n  )\r\nend\r\n```\r\n\r\n## 4. Create a new commit with changes\r\n\r\nGet the current commit first via [`Octokit#git_commit` method](http://octokit.github.io/octokit.rb/Octokit/Client/Commits.html#git_commit-instance_method):\r\n\r\n```ruby\r\ncommit = client.git_commit(repo, new_branch[\"object\"][\"sha\"])\r\n```\r\n\r\nNote that this method is not the same as [`Octokit#commit` method](http://octokit.github.io/octokit.rb/Octokit/Client/Commits.html#commit-instance_method). `git_commit` is from the low-level [Git Data API](https://developer.github.com/v3/git/), while `commit` is using the [Commits API](https://developer.github.com/v3/repos/commits/).\r\n\r\nNow we get the commit object, we can retrieve the tree:\r\n\r\n```ruby\r\ntree = commit[\"tree\"]\r\n```\r\n\r\nCreates a new tree by [`Octokit#create_tree` method](http://octokit.github.io/octokit.rb/Octokit/Client/Objects.html#create_tree-instance_method) with the blobs object we created earlier:\r\n\r\n```ruby\r\nnew_tree = client.create_tree(repo, new_tree, base_tree: tree[\"sha\"])\r\n```\r\n\r\nThe `base_tree` argument here is important. Pass in this option to *update an existing tree with new data*.\r\n\r\nNow our new tree is ready, we can add a commit onto it:\r\n\r\n```ruby\r\ncommit_message = \"Update foo \u0026 bar\"\r\nnew_commit = client.create_commit(repo, commit_message, new_tree[\"sha\"], commit[\"sha\"])\r\n```\r\n\r\n## 5. Add commit to the new branch\r\n\r\nFinally, update the reference via [`Octokit#update_ref` method](http://octokit.github.io/octokit.rb/Octokit/Client/Refs.html#update_ref-instance_method) on the new branch:\r\n\r\n```ruby\r\nclient.update_ref(repo, \"heads/#{new_branch_name}\", new_commit[\"sha\"])\r\n```\r\n\r\n## 6. Issue Pull Request\r\n\r\nCreates a new Pull Request via [`Octokit#create_pull_request` method](http://octokit.github.io/octokit.rb/Octokit/Client/PullRequests.html#create_pull_request-instance_method):\r\n\r\n```ruby\r\ntitle = \"Update foo and bar\"\r\nbody = \"This Pull Request appends foo with `bar`, bar with `baz`.\"\r\nclient.create_pull_request(repo, \"master\", new_branch_name, title, body)\r\n```\r\n\r\nThat's it! :sparkles:  See the result [here](https://github.com/JuanitoFatas/git-playground/pull/1).\r\n\r\nNow you can do basically everything with Git via GitHub's Git Data API!\r\n\r\nMay the Git Data API be with you.\r\n\r\n[github-git-data-api]: https://developer.github.com/v3/git/\r\n[octokit]: https://github.com/octokit/octokit.rb\r\n\r\n--\r\n\r\nThanks for reading! \r\n\r\n@JuanitoFatas :pencil2: [Jolly Good Code](http://www.jollygoodcode.com)\r\n\r\n### About Jolly Good Code\r\n\r\n[![Jolly Good Code](https://cloud.githubusercontent.com/assets/1000669/9362336/72f9c406-46d2-11e5-94de-5060e83fcf83.jpg)](http://www.jollygoodcode.com)\r\n \r\nWe specialise in Agile practices and Ruby, and we love contributing to open source. \r\n[Speak to us](http://www.jollygoodcode.com/#get-in-touch) about your next big idea, or [check out our projects](http://www.jollygoodcode.com/open-source).  ",
-    "number": 14
+    "id": 1,
+    "url": "https://api.github.com/repos/octocat/Hello-World/issues/1347",
+    "labels_url": "https://api.github.com/repos/octocat/Hello-World/issues/1347/labels{/name}",
+    "comments_url": "https://api.github.com/repos/octocat/Hello-World/issues/1347/comments",
+    "events_url": "https://api.github.com/repos/octocat/Hello-World/issues/1347/events",
+    "html_url": "https://github.com/octocat/Hello-World/issues/1347",
+    "number": 1347,
+    "state": "open",
+    "title": "Found a bug",
+    "body": "I'm having a problem with this.",
+    "user": {
+      "login": "octocat",
+      "id": 1,
+      "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/octocat",
+      "html_url": "https://github.com/octocat",
+      "followers_url": "https://api.github.com/users/octocat/followers",
+      "following_url": "https://api.github.com/users/octocat/following{/other_user}",
+      "gists_url": "https://api.github.com/users/octocat/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/octocat/subscriptions",
+      "organizations_url": "https://api.github.com/users/octocat/orgs",
+      "repos_url": "https://api.github.com/users/octocat/repos",
+      "events_url": "https://api.github.com/users/octocat/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/octocat/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+      {
+        "url": "https://api.github.com/repos/octocat/Hello-World/labels/bug",
+        "name": "bug",
+        "color": "f29513"
+      }
+    ],
+    "assignee": {
+      "login": "octocat",
+      "id": 1,
+      "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/octocat",
+      "html_url": "https://github.com/octocat",
+      "followers_url": "https://api.github.com/users/octocat/followers",
+      "following_url": "https://api.github.com/users/octocat/following{/other_user}",
+      "gists_url": "https://api.github.com/users/octocat/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/octocat/subscriptions",
+      "organizations_url": "https://api.github.com/users/octocat/orgs",
+      "repos_url": "https://api.github.com/users/octocat/repos",
+      "events_url": "https://api.github.com/users/octocat/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/octocat/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "milestone": {
+      "url": "https://api.github.com/repos/octocat/Hello-World/milestones/1",
+      "html_url": "https://github.com/octocat/Hello-World/milestones/v1.0",
+      "labels_url": "https://api.github.com/repos/octocat/Hello-World/milestones/1/labels",
+      "id": 1002604,
+      "number": 1,
+      "state": "open",
+      "title": "v1.0",
+      "description": "Tracking milestone for version 1.0",
+      "creator": {
+        "login": "octocat",
+        "id": 1,
+        "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/octocat",
+        "html_url": "https://github.com/octocat",
+        "followers_url": "https://api.github.com/users/octocat/followers",
+        "following_url": "https://api.github.com/users/octocat/following{/other_user}",
+        "gists_url": "https://api.github.com/users/octocat/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/octocat/subscriptions",
+        "organizations_url": "https://api.github.com/users/octocat/orgs",
+        "repos_url": "https://api.github.com/users/octocat/repos",
+        "events_url": "https://api.github.com/users/octocat/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/octocat/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "open_issues": 4,
+      "closed_issues": 8,
+      "created_at": "2011-04-10T20:09:31Z",
+      "updated_at": "2014-03-03T18:58:10Z",
+      "closed_at": "2013-02-12T13:22:01Z",
+      "due_on": "2012-10-09T23:39:01Z"
+    },
+    "locked": false,
+    "comments": 0,
+    "pull_request": {
+      "url": "https://api.github.com/repos/octocat/Hello-World/pulls/1347",
+      "html_url": "https://github.com/octocat/Hello-World/pull/1347",
+      "diff_url": "https://github.com/octocat/Hello-World/pull/1347.diff",
+      "patch_url": "https://github.com/octocat/Hello-World/pull/1347.patch"
+    },
+    "closed_at": null,
+    "created_at": "2011-04-22T13:33:48Z",
+    "updated_at": "2011-04-22T13:33:48Z"
   }
 ]
