@@ -3,8 +3,8 @@ require 'github'
 class PostsController < ApplicationController
   def index
     respond_to do |format|
+      format.html
       if gh_issues.present?
-        format.html
         format.json { render json: available_posts }
       else
         format.json { render json: { message: 'Please check your config' }, status: 400 }
