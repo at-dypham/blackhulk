@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<dom-module id="blackhulk-post">
+<dom-module id="blackhulk-long-post">
   <template>
     <style>
       :host {
@@ -49,9 +49,7 @@
         small-screen$="{{small}}"
       >
         <div class="wrapper">
-          <div class="title">
-            <a href="[[showPost(item.slug_url)]]">[[item.title]]</a>
-          </div>
+          <div class="title">[[item.title]]</div>
 
           <!-- Display as markdown -->
           <marked-element
@@ -66,12 +64,9 @@
 
   <script>
     Polymer({
-      is: "blackhulk-post",
+      is: "blackhulk-long-post",
       properties: {
         item: Object
-      },
-      showPost: function(slug) {
-        return "#/posts/" + slug
       }
     })
   </script>
