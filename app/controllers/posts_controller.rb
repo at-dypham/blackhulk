@@ -4,10 +4,12 @@ class PostsController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      if gh_issues.present?
-        format.json { render json: available_posts }
-      else
-        format.json { render json: { message: 'Please check your config' }, status: 400 }
+      format.json do
+        if gh_issues.present?
+          render json: available_posts
+        else
+          render json: { message: 'Please check your config' }, status: 400
+        end
       end
     end
   end
