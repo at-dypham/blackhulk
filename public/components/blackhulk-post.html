@@ -50,7 +50,7 @@
       >
         <div class="wrapper">
           <div class="title">
-            <a href="#/posts/1">[[item.title]]</a>
+            <a href="[[showPost(item.slug_url)]]">[[item.title]]</a>
 
           </div>
 
@@ -70,6 +70,9 @@
       is: "blackhulk-post",
       properties: {
         item: Object
+      },
+      showPost: function(slug) {
+        return "#/posts/" + slug
       }
     })
   </script>

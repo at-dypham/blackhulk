@@ -79,7 +79,7 @@
 
     <iron-ajax
       auto
-      url="[[url]]"
+      url="[[url(postId)]]"
       last-response="{{items}}"
       loading="{{loadingData}}"
     ></iron-ajax>
@@ -114,12 +114,12 @@
       </template>
 
       <template is="dom-if" if="{{!loadingData}}">
-        <blackhulk-post item="[[items.0]]"></blackhulk-post>
+        <blackhulk-post item="[[items]]"></blackhulk-post>
         <div class="horizontal layout center-center">
           <div class="like">
             <twitter-button
               type="share"
-              text="[[items.0.title]]"
+              text="[[items.title]]"
               href="[[pageURL()]]"
               class="flex"
             ></twitter-button>
@@ -140,11 +140,8 @@
   <script>
     Polymer({
       is: "post-page",
-      properties: {
-        url: {
-          type: String,
-          value: "https://gist.githubusercontent.com/duykhoa/dbf1189d6a1afdfff021/raw/d695f29a83cc44acfd01623669b0243287f06a92/data.json"
-        }
+      url: function(postId) {
+        return "/posts/" + postId + ".json"
       },
       pageURL: function() {
         return location.href;
