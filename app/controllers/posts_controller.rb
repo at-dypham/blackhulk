@@ -2,12 +2,30 @@ require 'github'
 
 class PostsController < ApplicationController
   def index
-    github = GitHub.new
-    issues = github.issues
-    if issues.present?
-      render json: PostPresenter.new(issues).available_posts
-    else
-      render json: {'message': 'Please check your config'}, status: 400
+    respond_to do |format|
+      format.html
+      if gh_issues.present?
+        format.json { render json: available_posts }
+      else
+        format.json { render json: { message: 'Please check your config' }, status: 400 }
+      end
     end
+  end
+
+  def show
+    issue = available_posts.select {|is| is[:slug_url] == params[:id]}
+    if issue.present?
+      render json: issue.first.slice(:title, :body)
+    else
+      render json: { message: 'The issue doesn not exist' }, status: 404
+    end
+  end
+
+  def gh_issues
+    GitHub.new.issues
+  end
+
+  def available_posts
+    PostPresenter.new(gh_issues).available_posts
   end
 end
