@@ -67,9 +67,6 @@
       }
     </style>
 
-    <iron-signals
-      on-iron-signal-updatetitle="updateTitle"></iron-signals>
-
     <paper-scroll-header-panel
       class="fit"
       condenses
@@ -119,10 +116,6 @@
         loadingData: Boolean,
         title: String,
         desc: String
-      },
-      updateTitle: function(e, detail, sender) {
-        this.title = detail.title;
-        this.desc = detail.desc;
       }
     })
   </script>

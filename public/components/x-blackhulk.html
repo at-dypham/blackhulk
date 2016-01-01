@@ -46,8 +46,8 @@
     </style>
 
     <app-router>
-      <app-route path="/" element="home-page"></app-route>
-      <app-route path="/posts/:postId" element="post-page"></app-route>
+      <app-route path="/" element="home-page" on-before-data-binding="bindSetting"></app-route>
+      <app-route path="/posts/:postId" element="post-page" on-before-data-binding="bindSetting"></app-route>
     </app-router>
 
   </template>
@@ -59,12 +59,9 @@
         title: String,
         desc: String
       },
-      attached: function() {
-        self = this;
-
-        this.async(function() {
-          self.fire('iron-signal', { name: 'updatetitle', data: { title: self.title, desc: self.desc } });
-        })
+      bindSetting: function(e) {
+        e.detail.model.title = this.title;
+        e.detail.model.desc = this.desc;
       }
     })
   </script>

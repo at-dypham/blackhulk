@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
 
   def set_blog_setting
     @blog_setting = {
-      title: ENV['blog_title'],
-      desc: ENV['blog_description']
+      desc: ENV['blog_description'],
+      title: ENV['blog_title']
     }
   end
 end
