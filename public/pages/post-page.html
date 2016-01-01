@@ -1,0 +1,157 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="post-page">
+  <template>
+    <!--Temporary duplicated things-->
+    <!--FIXME: Please DRY it-->
+
+    <style>
+      :host {
+        --a-style: {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+
+      :host ::content a, :host ::content a:hover, :host ::content a:visited {
+        @apply(--a-style);
+      }
+
+      paper-toolbar .title {
+        line-height: 1.1;
+      }
+
+      paper-toolbar.light {
+        color: black;
+      }
+
+      paper-toolbar.dark {
+        color: #eee;
+      }
+
+      paper-toolbar .middle.title {
+        text-align: center;
+        @apply(--paper-font-display1);
+      }
+
+      paper-toolbar .middle.title p {
+        text-align: center;
+        @apply(--paper-font-body1);
+      }
+
+      :host ::content paper-scroll-header-panel {
+        height: 100%;
+      }
+
+      paper-toolbar {
+        background-color: transparent;
+      }
+
+      paper-scroll-header-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        --paper-scroll-header-panel-condensed-header: {
+          background-color: var(--google-green-300);
+        };
+      }
+
+      :host ::content .like {
+        width: 50%;
+      }
+
+      twitter-button {
+        margin-right: 10px;
+      }
+
+      .spinner-wrapper {
+        text-align: center;
+      }
+
+      paper-spinner {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+
+    <iron-signals
+      on-iron-signal-updatetitle="updateTitle"></iron-signals>
+
+    <iron-ajax
+      auto
+      url="[[url(postId)]]"
+      last-response="{{items}}"
+      loading="{{loadingData}}"
+    ></iron-ajax>
+
+    <paper-scroll-header-panel
+      class="fit"
+      condenses
+      keep-condensed-header
+    >
+
+      <paper-toolbar class="tall light">
+        <a href="#/">
+          <paper-icon-button icon="home"></paper-icon-button>
+        </a>
+
+        <a href="#/">
+          <div class="top title">[[title]]</div>
+        </a>
+
+        <div class="middle title">
+          <div>[[title]]</div>
+          <p>[[desc]]</p>
+        </div>
+      </paper-toolbar>
+
+      <template is="dom-if" if="{{loadingData}}">
+        <div class="spinner-wrapper">
+          <iron-signals on-show></iron-signals>
+          <paper-spinner active="{{loadingData}}"></paper-spinner>
+        </div>
+      </template>
+
+      <template is="dom-if" if="{{!loadingData}}">
+        <blackhulk-long-post item="[[items]]"></blackhulk-long-post>
+        <div class="horizontal layout center-center">
+          <div class="like">
+            <twitter-button
+              type="share"
+              text="[[items.title]]"
+              href="[[pageURL()]]"
+              class="flex"
+            ></twitter-button>
+
+            <facebook-button
+              href="[[pageURL()]]"
+              class="flex"
+            ></facebook-button>
+
+            <disqus-comments shortname="kevintranninja"></disqus-comments>
+          </div>
+        </div>
+      </template>
+
+    </paper-scroll-header-panel>
+  </template>
+
+  <script>
+    Polymer({
+      is: "post-page",
+      properties: {
+        title: String,
+        desc: String
+      },
+      url: function(postId) {
+        return "/posts/" + postId + ".json"
+      },
+      pageURL: function() {
+        return location.href;
+      }
+    })
+  </script>
+</polymer-element>

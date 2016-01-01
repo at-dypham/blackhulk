@@ -10,6 +10,9 @@ echo "================= Enjoy some coffee ☕️ ==================="
 export rvm_gemset_create_on_use_flag=1
 rvm use $ruby_version@$ruby_gemset
 
+# install bundler
+gem install bundler
+
 # Run bundle install
 bundle install --jobs=5 --retry=8
 
@@ -26,16 +29,18 @@ then
 fi
 
 # Install npm & bower dependencies
-read -p " Do you want to init npm & bower?(y|n) " ans
+read -p " Do you want to init npm & bower? Can skip it (y|n) " ans
 
-if [[ ( "$ans" == "y" ) || ( "$ans" == "Y" )]]
+if [[ ( "$ans" == "y" ) || ( "$ans" == "Y" ) ]]
 then
   npm install
-  npm init -y
 
   npm install bower
-  bower init
+  bower install
 fi
+
+# run gulp
+gulp
 
 # rake db
 rake db:bootstrap

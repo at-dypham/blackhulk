@@ -1,0 +1,78 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="blackhulk-post">
+  <template>
+    <style>
+      :host {
+        --a-style: {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+
+      :host ::content a, :host ::content a:hover, :host ::content a:visited {
+        @apply(--a-style);
+      }
+
+      :host ::content iron-list {
+        padding-top: 20px;
+      }
+
+      :host ::content .post[small-screen] {
+        width: 95%;
+      }
+
+      :host ::content .post {
+        @apply(--paper-font-body1);
+        width: 60%;
+        margin-bottom: 15px;
+      }
+
+      :host ::content .title {
+        @apply(--paper-font-display1);
+      }
+
+      :host ::content .wrapper {
+        padding: 10px 15px;
+      }
+
+    </style>
+
+    <iron-media-query
+      query="(max-width: 600px)"
+      query-matches="{{small}}"
+    ></iron-media-query>
+
+    <div class="horizontal layout center-center">
+      <paper-material
+        class="post self-center"
+        small-screen$="{{small}}"
+      >
+        <div class="wrapper">
+          <div class="title">
+            <a href="[[showPost(item.slug_url)]]">[[item.title]]</a>
+          </div>
+
+          <!-- Display as markdown -->
+          <marked-element
+            markdown="[[item.body]]"
+          >
+            <div class="markdown-html"></div>
+          </marked-element>
+        </div>
+      </paper-material>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "blackhulk-post",
+      properties: {
+        item: Object
+      },
+      showPost: function(slug) {
+        return "#/posts/" + slug
+      }
+    })
+  </script>
+</dom-module>

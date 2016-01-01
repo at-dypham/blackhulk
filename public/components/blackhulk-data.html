@@ -1,0 +1,34 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="blackhulk-data">
+  <template>
+    <style>
+    </style>
+
+    <iron-ajax
+      url="[[url]]"
+      last-response="{{data}}"
+      loading="{{loadingData}}"
+      auto
+    ></iron-ajax>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: "blackhulk-data",
+      properties: {
+        url: String,
+        data: {
+          type: Object,
+          value: [],
+          notify: true
+        },
+        loadingData: {
+          type: Boolean,
+          notify: true
+        }
+      }
+    })
+  </script>
+</dom-module>

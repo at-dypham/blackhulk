@@ -1,0 +1,12 @@
+# Install npm, bower package
+npm install
+bower install
+
+# Build the frontend code
+gulp
+
+# Install gem
+bundle
+
+# Migrate data
+rake db:migrate
