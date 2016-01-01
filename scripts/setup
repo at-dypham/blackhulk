@@ -44,6 +44,3 @@ gulp
 
 # rake db
 rake db:bootstrap
-
-# run the server
-rails s -p 3000
