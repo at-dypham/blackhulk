@@ -30,6 +30,12 @@ blog_description: "Developer coolest platform for blogging"
 
 - Run `rails s` and enjoy
 
+# Example
+
+- Sample blog https://blackhulk-sample.herokuapp.com/
+
+- Sample repository https://github.com/FancyBlog/blogcontent/issues
+
 # Contributing
 
 1. Fork it ( https://github.com/FancyBlog/blackhulk/fork )
