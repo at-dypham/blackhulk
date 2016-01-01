@@ -67,6 +67,9 @@
       }
     </style>
 
+    <iron-signals
+      on-iron-signal-updatetitle="updateTitle"></iron-signals>
+
     <paper-scroll-header-panel
       class="fit"
       condenses
@@ -79,12 +82,12 @@
         </a>
 
         <a href="#/">
-          <div class="top title">Blog title</div>
+          <div class="top title">[[title]]</div>
         </a>
 
         <div class="middle title">
-          Blog title
-          <p>Blog Description I am a developer</p>
+          <div>[[title]]</div>
+          <p>[[desc]]</p>
         </div>
       </paper-toolbar>
 
@@ -113,7 +116,13 @@
       is: "blackhulk-view",
       properties: {
         data: Object,
-        loadingData: Boolean
+        loadingData: Boolean,
+        title: String,
+        desc: String
+      },
+      updateTitle: function(e, detail, sender) {
+        this.title = detail.title;
+        this.desc = detail.desc;
       }
     })
   </script>

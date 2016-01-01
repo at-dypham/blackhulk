@@ -77,13 +77,15 @@
       }
     </style>
 
+    <iron-signals
+      on-iron-signal-updatetitle="updateTitle"></iron-signals>
+
     <iron-ajax
       auto
       url="[[url(postId)]]"
       last-response="{{items}}"
       loading="{{loadingData}}"
     ></iron-ajax>
-
 
     <paper-scroll-header-panel
       class="fit"
@@ -97,12 +99,12 @@
         </a>
 
         <a href="#/">
-          <div class="top title">Blog title</div>
+          <div class="top title">[[title]]</div>
         </a>
 
         <div class="middle title">
-          Blog title
-          <p>Blog Description I am a developer</p>
+          <div>[[title]]</div>
+          <p>[[desc]]</p>
         </div>
       </paper-toolbar>
 
@@ -140,11 +142,19 @@
   <script>
     Polymer({
       is: "post-page",
+      properties: {
+        title: String,
+        desc: String
+      },
       url: function(postId) {
         return "/posts/" + postId + ".json"
       },
       pageURL: function() {
         return location.href;
+      },
+      updateTitle: function(e, detail, sender) {
+        this.title = detail.title;
+        this.desc = detail.desc;
       }
     })
   </script>

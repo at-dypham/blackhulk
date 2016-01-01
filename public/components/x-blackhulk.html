@@ -17,6 +17,7 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/iron-signals/iron-signals.html">
 
 <!-- Thirdparty element -->
 <link rel="import" href="../bower_components/facebook-button/dist/facebook-button.html">
@@ -53,7 +54,18 @@
 
   <script>
     Polymer({
-      is: "x-blackhulk"
+      is: "x-blackhulk",
+      properties: {
+        title: String,
+        desc: String
+      },
+      attached: function() {
+        self = this;
+
+        this.async(function() {
+          self.fire('iron-signal', { name: 'updatetitle', data: { title: self.title, desc: self.desc } });
+        })
+      }
     })
   </script>
 </dom-module>
