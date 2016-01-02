@@ -17,7 +17,7 @@ gem install bundler
 bundle install --jobs=5 --retry=8
 
 # Prompt user edit config files...
-read -p " Did you edit the database.yml yet? Press enter after finish editing"
+read -p " Did you edit the database.yml, application.yml and secrets.yml yet? Press enter after finish editing"
 
 # Ask user to install npm & bower
 read -p " This project requires npm, bower. Do you want to install them (y|n) " ans
@@ -29,7 +29,7 @@ then
 fi
 
 # Install npm & bower dependencies
-read -p " Do you want to init npm & bower? Can skip it (y|n) " ans
+read -p " Do you want to init npm & bower? (y|n) " ans
 
 if [[ ( "$ans" == "y" ) || ( "$ans" == "Y" ) ]]
 then
@@ -44,6 +44,3 @@ gulp
 
 # rake db
 rake db:bootstrap
-
-# run the server
-rails s -p 3000
