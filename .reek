@@ -1,0 +1,29 @@
+---
+
+### Generic smell configuration
+
+ControlParameter:
+  enabled: false
+DuplicateMethodCall:
+  enabled: false
+FeatureEnvy:
+  enabled: false
+IrresponsibleModule:
+  enabled: false
+NestedIterators:
+  max_allowed_nesting: 2
+NilCheck:
+  enabled: false
+PrimaDonnaMethod:
+  enabled: false
+RepeatedConditional:
+  enabled: false
+TooManyStatements:
+  enabled: true
+  max_statements: 15
+UncommunicativeVariableName:
+  enabled: false
+UtilityFunction:
+  enabled: true
+  exclude:
+    - "app/helpers"

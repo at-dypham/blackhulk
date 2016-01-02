@@ -1,15 +1,52 @@
 {
-  "lib": {
-    "name": "bower-rails generated lib assets",
-    "dependencies": {
-      // "threex"      : "git@github.com:rharriso/threex.git",
-      // "gsvpano.js"  : "https://github.com/rharriso/GSVPano.js/blob/master/src/GSVPano.js"
-    }
-  },
-  "vendor": {
-    "name": "bower-rails generated vendor assets",
-    "dependencies": {
-      // "three.js"    : "https://raw.github.com/mrdoob/three.js/master/build/three.js"
-    }
+  "name": "blackhulk",
+  "description": "Blog engine for developer.",
+  "main": "index.js",
+  "authors": [
+    "Duy Khoa <duykhoa12t@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/FancyBlog/blackhulk",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~1.2.3",
+    "iron-ajax": "PolymerElements/iron-ajax#~1.1.1",
+    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^1.0.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^1.0.0",
+    "iron-image": "PolymerElements/iron-image#^1.0.0",
+    "iron-pages": "PolymerElements/iron-pages#^1.0.0",
+    "iron-signals": "PolymerElements/iron-signals#~1.0.3",
+    "paper-badge": "PolymerElements/paper-badge#^1.0.0",
+    "paper-card": "PolymerElements/paper-card#^1.0.0",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.0.0",
+    "paper-header-panel": "PolymerElements/paper-header-panel#^1.0.0",
+    "paper-icon-button": "PolymerElements/paper-icon-button#~1.0.6",
+    "paper-material": "PolymerElements/paper-material#^1.0.0",
+    "paper-menu": "PolymerElements/paper-menu#^1.0.0",
+    "paper-menu-button": "PolymerElements/paper-menu-button#^1.0.0",
+    "paper-ripple": "PolymerElements/paper-ripple#^1.0.0",
+    "paper-spinner": "PolymerElements/paper-spinner#^1.0.0",
+    "paper-styles": "PolymerElements/paper-styles#^1.0.0",
+    "paper-tabs": "PolymerElements/paper-tabs#^1.0.0",
+    "paper-toast": "PolymerElements/paper-toast#^1.0.0",
+    "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.0.0",
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
+    "paper-tooltip": "PolymerElements/paper-tooltip#^1.0.0",
+    "iron-list": "PolymerElements/iron-list#~1.1.6",
+    "iron-media-query": "PolymerElements/iron-media-query#~1.0.8",
+    "marked-element": "PolymerElements/marked-element#~1.1.1",
+    "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#~1.0.13",
+    "app-router": "~2.6.1",
+    "facebook-button": "~0.2.1",
+    "disqus-comments": "duykhoa/disqus-comments#~0.1.4",
+    "twitter-button": "~0.2.1"
   }
 }

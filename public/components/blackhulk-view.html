@@ -1,0 +1,122 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="blackhulk-view">
+  <template>
+    <!--This mixin is duplicated, please refactor. FIXME, please-->
+    <style>
+      :host {
+        --a-style: {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+
+      :host ::content a, :host ::content a:hover, :host ::content a:visited {
+        @apply(--a-style);
+      }
+
+      paper-toolbar .title {
+        line-height: 1.1;
+      }
+
+      paper-toolbar.light {
+        color: black;
+      }
+
+      paper-toolbar.dark {
+        color: #eee;
+      }
+
+      paper-toolbar .middle.title {
+        text-align: center;
+        @apply(--paper-font-display1);
+      }
+
+      paper-toolbar .middle.title p {
+        text-align: center;
+        @apply(--paper-font-body1);
+      }
+
+      :host ::content paper-scroll-header-panel {
+        height: 100%;
+      }
+
+      paper-toolbar {
+        background-color: transparent;
+      }
+
+      paper-scroll-header-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        --paper-scroll-header-panel-condensed-header: {
+          background-color: var(--google-green-300);
+        };
+      }
+
+      :host ::content .spinner-wrapper {
+        text-align: center;
+      }
+
+      paper-spinner {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+
+    <paper-scroll-header-panel
+      class="fit"
+      condenses
+      keep-condensed-header
+      >
+
+      <paper-toolbar class="tall light">
+        <a href="#/">
+          <paper-icon-button icon="home"></paper-icon-button>
+        </a>
+
+        <a href="#/">
+          <div class="top title">[[title]]</div>
+        </a>
+
+        <div class="middle title">
+          <div>[[title]]</div>
+          <p>[[desc]]</p>
+        </div>
+      </paper-toolbar>
+
+      <template is="dom-if" if="{{loadingData}}">
+        <div class="spinner-wrapper">
+          <iron-signals on-show></iron-signals>
+          <paper-spinner active="{{loadingData}}"></paper-spinner>
+        </div>
+      </template>
+
+      <!--List of posts-->
+      <iron-list
+        items="[[data]]"
+      >
+        <template>
+          <blackhulk-post item="[[item]]"></blackhulk-post>
+        </template>
+      </iron-list>
+
+    </paper-scroll-header-panel>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: "blackhulk-view",
+      properties: {
+        data: Object,
+        loadingData: Boolean,
+        title: String,
+        desc: String
+      }
+    })
+  </script>
+</dom-module>

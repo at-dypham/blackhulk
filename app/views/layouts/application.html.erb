@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Blackhulk</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title><%= @blog_setting[:title]%></title>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+	<!-- CONFIGURABLE LINK -->
+  <link rel="import" href="<%= ELEMENT_PATH %>">
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="fullbleed">
 
 <%= yield %>
 

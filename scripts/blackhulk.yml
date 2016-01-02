@@ -1,0 +1,9 @@
+# ~/.tmuxinator/blackhulk.yml
+
+name: blackhulk
+root: ~/Workspace/blackhulk
+
+windows:
+  - editor: vi
+  - server: rails s
+  - logs: #nothing
