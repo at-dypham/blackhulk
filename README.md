@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/FancyBlog/blackhulk.svg?branch=develop)](https://travis-ci.org/FancyBlog/blackhulk)
 
-BlackHulk is a awesome blog engine for developer. Your posts will be saved on a GitHub repository and BlackHulk will display on a web browser.
+BlackHulk is an awesome blog engine for developer. Your posts will be saved on a GitHub repository and BlackHulk will display on a web browser.
 
 # Installation
 
@@ -46,4 +46,4 @@ blog_description: "Developer coolest platform for blogging"
 
 # Copyright
 
-Copyright © 2016 Duy Khoa – Released under MIT License
+Copyright © 2016 Khoa Tran - Vinh Nguyen – Released under MIT License
