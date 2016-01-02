@@ -1,0 +1,22 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module is="blackhulk-blog-setting">
+  <template>
+    <iron-ajax
+      url="/blog_settings"
+      last-response="{{settings}}"
+      auto
+    ></iron-ajax>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'blackhulk-blog-setting',
+      properties: {
+        settings: {
+          type: Object,
+          notify: true
+        }
+      }
+    })
+  </script>
+</dom-module>

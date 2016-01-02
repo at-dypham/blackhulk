@@ -67,6 +67,10 @@
       }
     </style>
 
+    <blackhulk-blog-setting
+      settings="{{settings}}"
+    ></blackhulk-blog-setting>
+
     <paper-scroll-header-panel
       class="fit"
       condenses
@@ -79,12 +83,12 @@
         </a>
 
         <a href="#/">
-          <div class="top title">[[title]]</div>
+          <div class="top title">[[settings.title]]</div>
         </a>
 
         <div class="middle title">
-          <div>[[title]]</div>
-          <p>[[desc]]</p>
+          <div>[[settings.title]]</div>
+          <p>[[settings.desc]]</p>
         </div>
       </paper-toolbar>
 
